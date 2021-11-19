@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Container, TextField, Button, ButtonGroup, InputLabel, Select, MenuItem, FormControl, Box } from '@mui/material';
+import { Container, Button, ButtonGroup, InputLabel, Select, MenuItem, FormControl, Box } from '@mui/material';
+import { Categories } from './Categories';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import FormatClearIcon from '@mui/icons-material/FormatClear';
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 
 export const TextFileViewer = () => {
 
@@ -27,13 +31,14 @@ export const TextFileViewer = () => {
     const handleOnClearTextClick = () => {
         setFileData('');
         setInputValue('');
+        setCategoryName('')
     }
 
     const handleSelect = (e: any) => {
         setCategoryName(e.target.value);
     }
 
-    const handlOnJumpToCategoryClick = () => {
+    const handleFindClick = () => {
         let keyWord = categoryName;
         let text = document.getElementById("searchable-textbox")?.textContent;
 
@@ -44,45 +49,53 @@ export const TextFileViewer = () => {
     }
     // ******************      HTML      ******************
 
+    const CategoriesList = Categories.map((category) => <MenuItem value={`${category}`}>{category}</MenuItem>);
+
+    let ButtonShelf;
     let TextBox;
-    if (fileData == "" || fileData == null)
-        TextBox = <Box sx={{ height: 100, backgroundColor: 'DarkGrey' }} />
-    else
+    let SearchBox;
+
+    if (fileData == "" || fileData == null) {
+        ButtonShelf =
+            <ButtonGroup >
+                <Button variant="text" component="label" startIcon={<UploadFileIcon />}> Upload File
+                    <input type="file" accept="text/*" value={inputValue} onChange={handleOnFileChange} hidden />
+                </Button>
+            </ButtonGroup>
+
+        TextBox = <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'DarkGrey' }} />
+    }
+
+    else {
+        ButtonShelf =
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <ButtonGroup sx={{ display: "flex-start", justifyContent: "space-around" }}>
+                    <Button component="label" variant="text" onClick={handleFindClick} startIcon={<FindInPageIcon />}> Find Keyword </Button>
+                    <Button component="label" variant="text" color="warning" onClick={handleOnClearTextClick} startIcon={<FormatClearIcon />}> Clear</Button>
+                </ButtonGroup>
+
+                <FormControl variant="standard" >
+                    <InputLabel id="demo-simple-select-label"> Keyword </InputLabel>
+                    <Select variant="standard" labelId="demo-simple-select-label" id="keyword" value={categoryName} label="Order Category" onChange={handleSelect}>
+                        {CategoriesList}
+                    </Select>
+                </FormControl>
+            </div>
+
+
         TextBox =
-            <Box sx={{ height: 100, backgroundColor: 'DarkGrey' }}>
+            <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'DarkGrey' }}>
                 <p id="searchable-textbox">{fileData}</p>
             </Box>
 
+    }
 
     return (
         <div>
-            {/* File Reader HTML */}
             <Container fixed>
-                <div>
-                    <input type="file" accept="text/*" value={inputValue} onChange={handleOnFileChange} />
+                    {ButtonShelf}
                     {TextBox}
-                    <Button fullWidth variant="contained" color="error" onClick={handleOnClearTextClick}> Clear</Button>
-                </div>
-
-                <div style={{ marginTop: "10px" }} />
-
-                {/* Keyword Finder HTML */}
-                <ButtonGroup fullWidth variant="text" aria-label="outlined primary button group">
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label"> Categories </InputLabel>
-                        <Select labelId="demo-simple-select-label" id="keyword" value={categoryName} label="Order Category" onChange={handleSelect}>
-                            <MenuItem value="Lorem">Lorem</MenuItem>
-                            <MenuItem value="Ipsum">Ipsum</MenuItem>
-                        </Select>
-                    </FormControl>
-
-                    <Button color="primary" onClick={handlOnJumpToCategoryClick}> Find Keyword </Button>
-                </ButtonGroup>
             </Container>
-
-
         </div>
     )
 }
-
-//   <TextField id="searchable-textbox" focused multiline fullWidth value={fileData} disabled maxRows={8} variant="filled" />
