@@ -1,11 +1,10 @@
 import './App.css';
-import { TextFileViewer } from './Components/FileReader/TextFileViewer';
+import { DemoPage } from './Components/Component_Demo_1/DemoPage';
 
 function App() {
   return (
-    <div>
-      Components Example
-      <TextFileViewer />
+    <div >
+      <DemoPage/>
     </div>
   );
 }
