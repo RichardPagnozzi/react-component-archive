@@ -55,19 +55,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
-
+const pages = [
+  'File Viewer',
+  'Sync Matrix',
+  'Timeline',
+];
 
 
 export default function SearchAppBar() {
+ 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [activePage, setActivePage] = useState<string>('')
   const open = Boolean(anchorEl);
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
