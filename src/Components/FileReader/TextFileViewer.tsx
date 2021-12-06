@@ -32,6 +32,7 @@ export const TextFileViewer = () => {
         setFileData('');
         setInputValue('');
         setCategoryName('')
+        console.log("Hi Jenna :)")
     }
 
     const handleSelect = (e: any) => {
@@ -53,7 +54,6 @@ export const TextFileViewer = () => {
 
     let ButtonShelf;
     let TextBox;
-    let SearchBox;
 
     if (fileData == "" || fileData == null) {
         ButtonShelf =
@@ -63,7 +63,7 @@ export const TextFileViewer = () => {
                 </Button>
             </ButtonGroup>
 
-        TextBox = <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'DarkGrey' }} />
+        TextBox = <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'white' }} />
     }
 
     else {
@@ -84,7 +84,7 @@ export const TextFileViewer = () => {
 
 
         TextBox =
-            <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'DarkGrey' }}>
+            <Box sx={{ height: 150, overflowY: "auto", backgroundColor: 'white' }}>
                 <p id="searchable-textbox">{fileData}</p>
             </Box>
 

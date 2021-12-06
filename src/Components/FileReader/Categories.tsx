@@ -7,5 +7,6 @@ export const Categories = [
     "Quia",
     "Pueda",
     "Dolum",
-    "i"
+    "laborum",
+    "a"
 ]
