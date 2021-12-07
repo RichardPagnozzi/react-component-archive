@@ -1,10 +1,11 @@
 import './App.css';
-import { DemoPage } from './Components/Component_Demo_1/DemoPage';
+import { EntryPoint } from './Components/EntryPoint';
+
 
 function App() {
   return (
     <div >
-      <DemoPage/>
+      <EntryPoint/>
     </div>
   );
 }

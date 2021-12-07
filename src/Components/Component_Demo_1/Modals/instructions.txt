@@ -1,0 +1,6 @@
+// TODO
+
+1.) Have a MODALS.tsx script that returns all the different modals as html 
+    - { <M1> <M2> <M3> }
+
+2.) Pass props.open to each modal script 

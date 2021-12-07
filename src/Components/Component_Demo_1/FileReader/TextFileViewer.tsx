@@ -1,11 +1,9 @@
 // ****************** Imports ********************
 import { useState, useEffect } from 'react';
 // MUI
-import { Container, Button, Stack, ButtonGroup, Typography, MenuItem, Box, IconButton, AppBar, Grid, Toolbar } from '@mui/material';
+import { Container, Button, Stack, ButtonGroup, Typography, MenuItem, Box, IconButton, AppBar, Menu, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CloudUploadIconSharp from '@mui/icons-material/CloudUpload';
-import FormatClearIcon from '@mui/icons-material/FormatClear';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
@@ -13,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { TextareaAutosize } from '@mui/base';
 // Dependencies
 import { Categories } from './Categories';
-import { UploadFileOutlined } from '@mui/icons-material';
 
 
 
@@ -26,7 +23,21 @@ export const TextFileViewer = () => {
     const [fileData, setFileData] = useState<any>(null);
     const [inputValue, setInputValue] = useState('');
     const [categoryName, setCategoryName] = useState('');
+    const [contextMenu, setContextMenu] = useState<{ mouseX: number; mouseY: number; } | null>(null);
     useEffect(() => { console.log(fileData) }, [fileData]);
+
+    const handleContextMenu = (event: React.MouseEvent) => {
+        event.preventDefault();
+        setContextMenu(
+            contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null);
+    };
+
+    const handleClose = () => {
+        setContextMenu(null);
+    };
+
+
+
 
     // ******************      Methods      ******************
 
@@ -67,71 +78,82 @@ export const TextFileViewer = () => {
         display: 'none',
     });
 
-    let ButtonShelf, TextBox, NavBar;
+    let TextBox, NavBar;
 
 
 
     if (fileData == "" || fileData == null) {
-        ButtonShelf = <div />
         NavBar = <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-            <Toolbar>
-            <Typography variant="subtitle2" sx={{color:"lightgray"}}> FILE VIEWER </Typography>   
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    {inputValue}
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    </Box>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="subtitle2" sx={{ color: "lightgray" }}> FILE VIEWER </Typography>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        {inputValue}
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+        </Box>
 
 
         TextBox =
-            <Box component="div" sx={{border:"dashed 2px gray", display: "flex", height: 150, backgroundColor: 'DarkGrey', alignItems: "center", justifyContent: "center" }} >
-               <Stack direction="column" justifyContent="center" alignItems="center">
-                <label htmlFor="icon-button-file">
-                    <Input accept="text/*" type="file" id="icon-button-file" onChange={handleOnFileChange}/>
-                    <IconButton component="span" sx={{color:"White"}}>
-                        <UploadFileOutlined />
-                    </IconButton>
-                </label>
-                <Typography variant="subtitle2" sx={{color:"white"}}> Upload File  </Typography>
+            <Box component="div" sx={{ border: "dashed 2px gray", display: "flex", height: 150, backgroundColor: 'DarkGrey', alignItems: "center", justifyContent: "center" }} >
+                <Stack direction="column" justifyContent="center" alignItems="center">
+                    <label htmlFor="icon-button-file">
+                        <Input accept="text/*" type="file" id="icon-button-file" onChange={handleOnFileChange} />
+                        <IconButton component="span" sx={{ color: "White" }}>
+                            <CloudUploadIconSharp />
+                        </IconButton>
+                    </label>
+                    <Typography variant="subtitle2" sx={{ color: "white" }}> Upload File  </Typography>
                 </Stack>
             </Box>
     }
 
     else {
         NavBar = <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-            <Toolbar>
-                <ButtonGroup >
-                    <IconButton sx={{ color: "white" }} >  <ZoomInIcon /> </IconButton>
-                    <IconButton sx={{ color: "white" }} >  <ZoomOutIcon /> </IconButton>
-                    <IconButton sx={{ color: "white" }} >  <DownloadForOfflineIcon /> </IconButton>
-                </ButtonGroup>
+            <AppBar position="static">
+                <Toolbar>
+                    <ButtonGroup >
+                        <IconButton sx={{ color: "white" }} >  <ZoomInIcon /> </IconButton>
+                        <IconButton sx={{ color: "white" }} >  <ZoomOutIcon /> </IconButton>
+                        <IconButton sx={{ color: "white" }} >  <DownloadForOfflineIcon /> </IconButton>
+                    </ButtonGroup>
 
-                <Typography variant="subtitle2" sx={{ flexGrow: 1, color:"lightgray" }}>
-                    {inputValue}
-                </Typography>
+                    <Typography variant="subtitle2" sx={{ flexGrow: 1, color: "lightgray" }}>
+                        {inputValue}
+                    </Typography>
 
-                <Button
-                    component="label"
-                    variant="outlined"
-                    sx={{ color: "white" }}
-                    onClick={handleOnClearTextClick}
-                    endIcon={<CloseIcon />}>
-                    Close File
-                </Button>
+                    <Button
+                        component="label"
+                        variant="outlined"
+                        sx={{ color: "white" }}
+                        onClick={handleOnClearTextClick}
+                        endIcon={<CloseIcon />}>
+                        Close File
+                    </Button>
 
-            </Toolbar>
-        </AppBar>
-    </Box> 
+                </Toolbar>
+            </AppBar>
+        </Box>
 
         TextBox =
-            <TextareaAutosize
-                maxRows={100}
-                defaultValue={fileData}
-                id="textbox"
-                style={{ width: '100%', backgroundColor: 'DarkGrey', overflowY: "auto" }} />
+            <div onContextMenu={handleContextMenu} style={{ cursor: 'context-menu' }}>
+                <TextareaAutosize
+                    maxRows={100}
+                    defaultValue={fileData}
+                    id="textbox"
+                    style={{ width: '100%', backgroundColor: 'DarkGrey', overflowY: "auto" }} />
+                <Menu
+                    open={contextMenu !== null}
+                    onClose={handleClose}
+                    anchorReference="anchorPosition"
+                    anchorPosition={contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX }: undefined}
+                >
+                    <MenuItem onClick={handleClose}>Open Matrix Manager</MenuItem>
+                    <MenuItem onClick={handleClose}>Stash Chunk</MenuItem>
+                    <MenuItem onClick={handleClose}>Copy </MenuItem>
+                </Menu>
+            </div>
     }
 
     return (
