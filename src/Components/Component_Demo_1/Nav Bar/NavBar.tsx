@@ -104,6 +104,7 @@ export default function SearchAppBar() {
           >
             <MenuItem onClick={handleClose}>File Viewer</MenuItem>
             <MenuItem onClick={handleClose}>Matrix</MenuItem>
+            <MenuItem onClick={handleClose}>Mission Analysis</MenuItem>
             <MenuItem onClick={handleClose}>Timeline</MenuItem>
           </Menu>
 
@@ -113,7 +114,7 @@ export default function SearchAppBar() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-            Sync Matrix
+            Mission Planning
           </Typography>
          
 

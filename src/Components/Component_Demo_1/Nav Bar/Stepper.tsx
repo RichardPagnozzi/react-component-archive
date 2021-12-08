@@ -6,13 +6,14 @@ import StepLabel from '@mui/material/StepLabel';
 const steps = [
   'File Viewer',
   'Sync Matrix',
+  'Mission Analysis',
   'Timeline',
 ];
 
 export default function HorizontalLabelPositionBelowStepper() {
   return (
-    <Box sx={{ width: '100%'}}>
-      <Stepper activeStep={1} >
+    <Box sx={{ width: '50%'}}>
+      <Stepper activeStep={0} >
         {steps.map((label) => (
           <Step key={label} >
             <StepLabel >{label}</StepLabel>

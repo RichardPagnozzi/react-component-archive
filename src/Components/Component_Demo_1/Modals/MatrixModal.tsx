@@ -1,8 +1,5 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import { Box, Typography, Modal, Grid, Card, CardActions, CardContent, Button } from '@mui/material';
+import { ModalButton1 } from './ModalButton1';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -10,37 +7,73 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: 'gray',
   boxShadow: 24,
-  p: 4,
 };
 
 type ModalProps = {
-    openModal: boolean
-    // adding a '?' makes the property optional, and doesn't need to be passed 
+  openModal: boolean
+  closeFunction: () => void
 }
 
+const ButtonLabels = [
+  "Button 1",
+  "Button 2",
+  "Button 3",
+  "Button 4",
+  "Button 5",
+  "Button 6",
+]
+
 export const MatrixModal = (props: ModalProps) => {
+
+  const onButton1Click = () => { }
+  const onButton2Click = () => { }
+  const onButton3Click = () => { }
+  const onButton4Click = () => { }
+  const onButton5Click = () => { }
+  const onButton6Click = () => { }
+
 
   return (
     <div>
       <Modal
         open={props.openModal}
-        // onClose={handleClose}
+        onClose={props.closeFunction}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        aria-describedby="modal-modal-description">
+
+        <Card sx={style}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ color: "white" }}>
+              Matrix Manager
+            </Typography>
+            <hr />
+            <Grid container spacing={2} columns={12} >
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[0]} onClickFunction={onButton1Click} />
+              </Grid>
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[1]} onClickFunction={onButton2Click} />
+              </Grid>
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[2]} onClickFunction={onButton3Click} />
+              </Grid>
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[3]} onClickFunction={onButton4Click} />
+              </Grid>
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[4]} onClickFunction={onButton5Click} />
+              </Grid>
+              <Grid item xs={4}>
+                <ModalButton1 label={ButtonLabels[5]} onClickFunction={onButton6Click} />
+              </Grid>
+
+            </Grid>
+          </CardContent>
+        </Card>
       </Modal>
     </div>
-    
+
   );
 }

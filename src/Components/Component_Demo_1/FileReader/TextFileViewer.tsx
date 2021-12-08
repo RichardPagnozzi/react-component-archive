@@ -8,10 +8,13 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import CloseIcon from '@mui/icons-material/Close';
+import SaveIcon from '@mui/icons-material/Save';
 import { TextareaAutosize } from '@mui/base';
 // Dependencies
 import { Categories } from './Categories';
-
+import { MatrixModal } from '../Modals/MatrixModal';
+import { AnalysisModal } from '../Modals/AnalysisModal';
+import { FormatModal } from '../Modals/FormatModal';
 
 
 
@@ -24,20 +27,9 @@ export const TextFileViewer = () => {
     const [inputValue, setInputValue] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [contextMenu, setContextMenu] = useState<{ mouseX: number; mouseY: number; } | null>(null);
+    const [isModalOpen, setModal] = useState('')
+
     useEffect(() => { console.log(fileData) }, [fileData]);
-
-    const handleContextMenu = (event: React.MouseEvent) => {
-        event.preventDefault();
-        setContextMenu(
-            contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null);
-    };
-
-    const handleClose = () => {
-        setContextMenu(null);
-    };
-
-
-
 
     // ******************      Methods      ******************
 
@@ -70,6 +62,26 @@ export const TextFileViewer = () => {
         let modifiedText = text!.replace(pattern, `<mark>${keyWord}</mark>`)!;
         document.getElementById("textbox")!.innerHTML = modifiedText!;
         console.log('Inner Html:' + document.getElementById("textbox")!.innerHTML);
+    }
+
+    const handleOpenContextMenu = (event: React.MouseEvent) => {
+        event.preventDefault();
+        setContextMenu(
+            contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null);
+    };
+
+    const handleCloseContextMenu = () => {
+        setContextMenu(null);
+    };
+
+    const openModal = (event: any) => {
+        event.preventDefault()
+        setModal(event.target.innerText.toString())
+        handleCloseContextMenu();
+    }
+
+    const closeModal = () => {
+        setModal('')
     }
     // ******************      HTML      ******************
 
@@ -116,7 +128,7 @@ export const TextFileViewer = () => {
                     <ButtonGroup >
                         <IconButton sx={{ color: "white" }} >  <ZoomInIcon /> </IconButton>
                         <IconButton sx={{ color: "white" }} >  <ZoomOutIcon /> </IconButton>
-                        <IconButton sx={{ color: "white" }} >  <DownloadForOfflineIcon /> </IconButton>
+                        <IconButton sx={{ color: "white" }} >  <SaveIcon /> </IconButton>
                     </ButtonGroup>
 
                     <Typography variant="subtitle2" sx={{ flexGrow: 1, color: "lightgray" }}>
@@ -137,7 +149,7 @@ export const TextFileViewer = () => {
         </Box>
 
         TextBox =
-            <div onContextMenu={handleContextMenu} style={{ cursor: 'context-menu' }}>
+            <div onContextMenu={handleOpenContextMenu} style={{ cursor: 'context-menu' }}>
                 <TextareaAutosize
                     maxRows={100}
                     defaultValue={fileData}
@@ -145,13 +157,13 @@ export const TextFileViewer = () => {
                     style={{ width: '100%', backgroundColor: 'DarkGrey', overflowY: "auto" }} />
                 <Menu
                     open={contextMenu !== null}
-                    onClose={handleClose}
+                    onClose={handleCloseContextMenu}
                     anchorReference="anchorPosition"
-                    anchorPosition={contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX }: undefined}
+                    anchorPosition={contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined}
                 >
-                    <MenuItem onClick={handleClose}>Open Matrix Manager</MenuItem>
-                    <MenuItem onClick={handleClose}>Stash Chunk</MenuItem>
-                    <MenuItem onClick={handleClose}>Copy </MenuItem>
+                    <MenuItem onClick={openModal}> Matrix Manager </MenuItem>
+                    <MenuItem onClick={openModal}> Mission Analysis Tool</MenuItem>
+                    <MenuItem onClick={handleCloseContextMenu}> Format Tool </MenuItem>
                 </Menu>
             </div>
     }
@@ -159,8 +171,14 @@ export const TextFileViewer = () => {
     return (
         <div>
             <Container maxWidth="xl">
+
                 {NavBar}
                 {TextBox}
+
+                <MatrixModal closeFunction={closeModal} openModal={isModalOpen === 'Matrix Manager'} />
+                <FormatModal />
+                <AnalysisModal closeFunction={closeModal} openModal={isModalOpen === 'Mission Analysis Tool'} />
+
             </Container>
         </div>
     )
