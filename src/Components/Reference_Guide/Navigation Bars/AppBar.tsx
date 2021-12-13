@@ -16,8 +16,8 @@ export const SimpleAppBar = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         React Component Archive
                     </Typography>
-                    <Button href="/ReferenceGuide" color="inherit">Reference</Button>
-                    <Button href="/ComponentBrowser" color="inherit">Components</Button>
+                    <Button href="/ReferenceGuide" color="inherit">Components</Button>
+                    <Button href="/ComponentBrowser" color="inherit">Systems</Button>
                 </Toolbar>
             </AppBar>
         </Box>

@@ -1,6 +1,6 @@
 import { Container, Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
-import { PropExample } from "./Prop Examples/PropExample"
-import { Tick } from "./Hooks Example/SimpleExample"
+import { PropExample } from "./Reference Components/Prop Examples/PropExample"
+import { Tick } from "./Reference Components/Hooks Example/SimpleExample"
 
 import './ComponentReference.css';
 
@@ -10,7 +10,7 @@ export const ComponentReferenceGuide = () => {
     return (
         <div className="Browser-Center">
          
-            <h2 style={{color:"white"}}>Component Reference Guide</h2>
+            <h2 style={{color:"white"}}>Modular Components</h2>
            
             <Container >
                 <div>

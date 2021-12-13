@@ -1,10 +1,16 @@
+// Imports
 import { CssBaseline } from "@mui/material"
 import { useState, useEffect } from 'react';
-
+// MUI 
+import { Container } from '@mui/material';
+// Components 
 import { TextFileViewer } from "./FileReader/TextFileViewer"
-import SearchAppBar from "./Nav Bar/NavBar"
-import FullFeaturedDemo from "./Sync Matrix/SyncMatrix"
+import SearchAppBar from "./NavBar/NavBar"
+import { Matrix } from "./Matrix/SyncMatrix";
 import { Timeline } from './Timeline/Timeline';
+import { TableOfContents } from "./TOC/TableOfContents";
+
+import { Divider } from '@mui/material/';
 
 const components = [
     'File Viewer',
@@ -12,7 +18,7 @@ const components = [
     'Timeline',
 ];
 
-export const SyncMatrixDemo = () => {
+export const FileViewerDemo = () => {
 
     // VARIABLES/METHODS
     const [curActiveComponent, setCurActiveComponent] = useState<string>(components[0]);
@@ -26,10 +32,10 @@ export const SyncMatrixDemo = () => {
         activeComponent = <TextFileViewer />
     }
     else if (curActiveComponent == "Sync Matrix") {
-        activeComponent = <FullFeaturedDemo />
+        activeComponent = <Matrix />
     }
     else if (curActiveComponent == "Timeline") {
-        activeComponent = <Timeline/>
+        activeComponent = <Timeline />
     }
 
     // RETURN HTML
@@ -38,7 +44,11 @@ export const SyncMatrixDemo = () => {
             <CssBaseline />
             <SearchAppBar />
             <div style={{ padding: "10px" }}>
-                <TextFileViewer />
+                <Container sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <div style={{ width: "25%", position: "sticky" }}><TableOfContents /></div>
+                    <Divider orientation="vertical" flexItem />
+                    <div style={{ width: "75%" }}><TextFileViewer /></div>
+                </Container>
             </div>
         </div>
     )

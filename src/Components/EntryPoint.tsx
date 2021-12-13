@@ -1,5 +1,5 @@
-import { WebPageRouter } from './Component_Demo_2/Browser Router/WebPageRouter';
-import {SimpleAppBar} from './Component_Demo_2/Navigation Bars/AppBar';
+import { WebPageRouter } from './WebPageRouter';
+import { SimpleAppBar } from './Reference_Guide/Navigation Bars/AppBar';
 
 export const EntryPoint = () => {
 

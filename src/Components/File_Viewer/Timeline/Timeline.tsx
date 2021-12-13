@@ -3,7 +3,7 @@
 export const Timeline = () => {
     return(
         <div>
-            TIMLINE PAGE
+            TIMELINE PAGE
         </div>
     )
 }
