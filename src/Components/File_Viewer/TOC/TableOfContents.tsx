@@ -6,35 +6,78 @@ import CircleSharpIcon from '@mui/icons-material/CircleSharp';
 
 
 
+const CategoryList = [
+    "Category 1",
+    "Category 2",
+    "Category 3",
+    "Category 4",
+    "Category 5"
+]
+
 export const TableOfContents = () => {
 
     const [openNested, setOpen] = React.useState(false);
 
 
     const handleCat1Click = () => {
-        var element = document.getElementById("initial-header")
-        if(element)
-        element!.scrollIntoView();
+        // determine the word we're looking for
+        let keyword = CategoryList[0];
+        // find the word in the textbox
+        let text = document.getElementById("textbox")?.textContent;
+        let pattern = RegExp(`${keyword}`, 'g');
+        // replace the word with a <h2> tag and id
+        let modifiedText = text!.replace(pattern, ` <mark id="category-1">${keyword}</mark>`)!;
+        document.getElementById("textbox")!.innerHTML = modifiedText!;
+
+        // find the <h2> we just added
+        var element = document.getElementById("category-1");
+        // if it exists, scroll to it
+        if (element) element!.scrollIntoView();
     }
+
+
     const handleCat2Click = () => {
-        var element = document.getElementById("second-header")
-        if(element)
-        element!.scrollIntoView();
+        let keyword = CategoryList[1];
+        let text = document.getElementById("textbox")?.textContent;
+        let pattern = RegExp(`${keyword}`, 'g');
+        let modifiedText = text!.replace(pattern, ` <mark id="category-2">${keyword}</mark>`)!;
+        document.getElementById("textbox")!.innerHTML = modifiedText!;
+
+        var element = document.getElementById("category-2");
+        if (element) element!.scrollIntoView();
     }
+
     const handleCat3Click = () => {
-        var element = document.getElementById("third-header")
-        if(element)
-        element!.scrollIntoView();
+        let keyword = CategoryList[2];
+        let text = document.getElementById("textbox")?.textContent;
+        let pattern = RegExp(`${keyword}`, 'g');
+        let modifiedText = text!.replace(pattern, ` <mark id="category-3">${keyword}</mark>`)!;
+        document.getElementById("textbox")!.innerHTML = modifiedText!;
+
+        var element = document.getElementById("category-3");
+        if (element) element!.scrollIntoView();
     }
+
     const handleCat4Click = () => {
-        var element = document.getElementById("fourth-header")
-        if(element)
-        element!.scrollIntoView();
+        let keyword = CategoryList[3];
+        let text = document.getElementById("textbox")?.textContent;
+        let pattern = RegExp(`${keyword}`, 'g');
+        let modifiedText = text!.replace(pattern, ` <mark id="category-4">${keyword}</mark>`)!;
+        document.getElementById("textbox")!.innerHTML = modifiedText!;
+
+        var element = document.getElementById("category-4");
+        if (element) element!.scrollIntoView();
     }
+
     const handleCat5Click = () => {
-        var element = document.getElementById("fifth-header")
-        if(element)
-        element!.scrollIntoView();
+        let keyword = CategoryList[4];
+        let text = document.getElementById("textbox")?.textContent;
+        let pattern = RegExp(`${keyword}`, 'g');
+        let modifiedText = text!.replace(pattern, ` <mark id="category-5">${keyword}</mark>`)!;
+        document.getElementById("textbox")!.innerHTML = modifiedText!;
+
+        var element = document.getElementById("category-5");
+        if (element) element!.scrollIntoView();
     }
 
     const handleExpansionClick = () => {

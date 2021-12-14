@@ -16,19 +16,19 @@ export const TableOfContentsDemo = () => {
 
     let textbox =
         <nav>
-            <h2 id="initial-header">Category 1</h2>
+            <h2 id="category-1">Category 1</h2>
             <p>{DummyText}</p>
-            <h2 id="second-header">Category 2</h2>
+            <h2 id="category-2">Category 2</h2>
             <p>{DummyText}</p>
-            <h2 id="third-header">Category 3</h2>
-            <p>{DummyText}</p>
-            <p>{DummyText}</p>
-            <h2 id="fourth-header">Category 4 </h2>
+            <h2 id="category-3">Category 3</h2>
             <p>{DummyText}</p>
             <p>{DummyText}</p>
+            <h2 id="category-4">Category 4 </h2>
             <p>{DummyText}</p>
             <p>{DummyText}</p>
-            <h2 id="fifth-header">Category 5 </h2>
+            <p>{DummyText}</p>
+            <p>{DummyText}</p>
+            <h2 id="category-5">Category 5 </h2>
             <p>{DummyText}</p>
             <p>{DummyText}</p>
         </nav>

@@ -49,21 +49,7 @@ export const TextFileViewer = () => {
         setInputValue('');
         setCategoryName('')
     }
-
-    const handleSelect = (e: any) => {
-        setCategoryName(e.target.value);
-    }
-
-    const handleFindClick = () => {
-        let keyWord = categoryName;
-        let text = document.getElementById("textbox")?.textContent;
-
-        let pattern = RegExp(`${keyWord}`, 'g');
-        let modifiedText = text!.replace(pattern, `<mark>${keyWord}</mark>`)!;
-        document.getElementById("textbox")!.innerHTML = modifiedText!;
-        console.log('Inner Html:' + document.getElementById("textbox")!.innerHTML);
-    }
-
+    
     const handleOpenContextMenu = (event: React.MouseEvent) => {
         event.preventDefault();
         setContextMenu(
@@ -151,7 +137,7 @@ export const TextFileViewer = () => {
         TextBox =
             <div onContextMenu={handleOpenContextMenu} style={{ cursor: 'context-menu' }}>
                 <Box component="div" sx={{ border: "dashed 2px gray", height: 250, backgroundColor: 'DarkGrey', overflowY: "auto" }} >
-                    <pre>
+                    <pre id="textbox">
                         {fileData}
                     </pre>
                 </Box>
