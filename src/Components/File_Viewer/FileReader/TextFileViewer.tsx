@@ -86,6 +86,7 @@ export const TextFileViewer = () => {
     // ******************      HTML      ******************
 
     const CategoriesList = Categories.map((category) => <MenuItem value={`${category}`}>{category}</MenuItem>);
+
     const Input = styled('input')({
         display: 'none',
     });
@@ -93,7 +94,7 @@ export const TextFileViewer = () => {
     let TextBox, NavBar;
 
 
-
+    // What is rendered while NO Text File is Selected
     if (fileData == "" || fileData == null) {
         NavBar = <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -106,9 +107,8 @@ export const TextFileViewer = () => {
             </AppBar>
         </Box>
 
-
         TextBox =
-            <Box component="div" sx={{ border: "dashed 2px gray", display: "flex", height: 150, backgroundColor: 'DarkGrey', alignItems: "center", justifyContent: "center" }} >
+            <Box component="div" sx={{ border: "dashed 2px gray", display: "flex", height: 250, backgroundColor: 'DarkGrey', alignItems: "center", justifyContent: "center" }} >
                 <Stack direction="column" justifyContent="center" alignItems="center">
                     <label htmlFor="icon-button-file">
                         <Input accept="text/*" type="file" id="icon-button-file" onChange={handleOnFileChange} />
@@ -120,7 +120,7 @@ export const TextFileViewer = () => {
                 </Stack>
             </Box>
     }
-
+    // What is rendered while Text File is Selected
     else {
         NavBar = <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -150,11 +150,11 @@ export const TextFileViewer = () => {
 
         TextBox =
             <div onContextMenu={handleOpenContextMenu} style={{ cursor: 'context-menu' }}>
-                <TextareaAutosize
-                    maxRows={100}
-                    defaultValue={fileData}
-                    id="textbox"
-                    style={{ width: '100%', backgroundColor: 'DarkGrey', overflowY: "auto" }} />
+                <Box component="div" sx={{ border: "dashed 2px gray", height: 250, backgroundColor: 'DarkGrey', overflowY: "auto" }} >
+                    <pre>
+                        {fileData}
+                    </pre>
+                </Box>
                 <Menu
                     open={contextMenu !== null}
                     onClose={handleCloseContextMenu}

@@ -13,22 +13,27 @@ export const TableOfContents = () => {
 
     const handleCat1Click = () => {
         var element = document.getElementById("initial-header")
+        if(element)
         element!.scrollIntoView();
     }
     const handleCat2Click = () => {
         var element = document.getElementById("second-header")
+        if(element)
         element!.scrollIntoView();
     }
     const handleCat3Click = () => {
         var element = document.getElementById("third-header")
+        if(element)
         element!.scrollIntoView();
     }
     const handleCat4Click = () => {
         var element = document.getElementById("fourth-header")
+        if(element)
         element!.scrollIntoView();
     }
     const handleCat5Click = () => {
         var element = document.getElementById("fifth-header")
+        if(element)
         element!.scrollIntoView();
     }
 
